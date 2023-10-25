@@ -43,6 +43,7 @@ dependencies:
   percent_indicator: ^4.2.3
   blurrycontainer: ^1.0.2
   bottom_bar_with_sheet: ^2.4.0
+  google_fonts: ^6.1.0
 
 dev_dependencies:
   flutter_test:
