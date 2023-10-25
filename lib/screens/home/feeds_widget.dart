@@ -209,20 +209,23 @@ class RecentMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return SizedBox(
-      width: size.width,
-      child: ScrollSnapList(
-        itemBuilder: _itemBuilder,
-        itemCount: 10,
-        itemSize: size.width / 1.6, // Make items wider
-        onItemFocus: _onItemFocus,
-        dynamicItemSize: true,
-        dynamicItemOpacity: 0.7, // Adjust opacity for the current and next item
-        initialIndex: 0,
-        updateOnScroll: true,
-        curve: Curves.bounceInOut,
-        focusOnItemTap: true,
-        shrinkWrap: true,
+    return GestureDetector(
+      onTap: (){},
+      child: SizedBox(
+        width: size.width,
+        child: ScrollSnapList(
+          itemBuilder: _itemBuilder,
+          itemCount: 10,
+          itemSize: size.width / 1.6, // Make items wider
+          onItemFocus: _onItemFocus,
+          dynamicItemSize: true,
+          dynamicItemOpacity: 0.7, // Adjust opacity for the current and next item
+          initialIndex: 0,
+          updateOnScroll: true,
+          curve: Curves.bounceInOut,
+          focusOnItemTap: true,
+          shrinkWrap: true,
+        ),
       ),
     );
   }
@@ -235,49 +238,52 @@ class GenericsMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: size.height * 0.015),
-          width: size.width * 0.4,
-          height: size.height * 0.35,
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
+    return GestureDetector(
+      onTap: (){},
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemBuilder: (context, index) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: size.height * 0.015),
+            width: size.width * 0.4,
+            height: size.height * 0.35,
+            child: Card(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: const BorderRadius.only(
+                      topLeft: Radius.circular(20),
+                      topRight: Radius.circular(20),
+                    ),
+                    child: Image.asset(
+                      Constants.pic1,
+                      fit: BoxFit.cover,
+      
+                      // width: size.width * 0.4,
+                    ),
                   ),
-                  child: Image.asset(
-                    Constants.pic1,
-                    fit: BoxFit.cover,
-
-                    // width: size.width * 0.4,
+                  const Text(
+                    "Joker",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                const Text(
-                  "Joker",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-                const Text(
-                  "Crime,Drama,Thriller",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: Color.fromRGBO(42, 42, 42, 0.5)),
-                )
-              ],
+                  const Text(
+                    "Crime,Drama,Thriller",
+                    style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontSize: 14,
+                        color: Color.fromRGBO(42, 42, 42, 0.5)),
+                  )
+                ],
+              ),
             ),
-          ),
-        );
-      },
-      itemCount: 10,
+          );
+        },
+        itemCount: 10,
+      ),
     );
   }
 }
