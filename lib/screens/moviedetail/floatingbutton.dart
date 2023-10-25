@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:movie_discovery_app/controllers/movie_controllers.dart';
+import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
+
 
 class FloatingButton extends StatefulWidget {
   final double screenWidth;

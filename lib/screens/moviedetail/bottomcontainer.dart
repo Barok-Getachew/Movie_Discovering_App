@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:movie_discovery_app/screen/moviedetail/buytickedbutton.dart';
+import 'package:movie_discovery_app/screens/moviedetail/buytickedbutton.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class BottomContainer extends StatelessWidget {

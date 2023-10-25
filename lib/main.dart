@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:movie_discovery_app/helpers/init_dependency.dart';
-import 'package:movie_discovery_app/screen/moviedetail/movie_detil_screen.dart';
+import 'package:movie_discovery_app/screens/moviedetail/movie_detil_screen.dart';
 
 void main() {
   runApp(const MovieDiscoverApp());
@@ -24,7 +24,7 @@ class MovieDiscoverApp extends StatelessWidget {
             bodySmall: TextStyle(fontFamily: "PlusJakartaSans")),
         useMaterial3: true,
       ),
-      home: const DetailScreen(),
+      // home: const DetailScreen(),
     );
   }
 }

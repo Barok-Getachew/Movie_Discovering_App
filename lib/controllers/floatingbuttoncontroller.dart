@@ -1,29 +1,6 @@
 import 'package:get/get.dart';
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 class FloatingButtomControllor extends GetxController {
   bool _isVisible = false;
 

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie_discovery_app/controllers/movie_controllers.dart';
+import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
 
-import 'package:movie_discovery_app/screen/moviedetail/bluredcontainer.dart';
-import 'package:movie_discovery_app/screen/moviedetail/bottomcontainer.dart';
+import 'package:movie_discovery_app/screens/moviedetail/bluredcontainer.dart';
+import 'package:movie_discovery_app/screens/moviedetail/bottomcontainer.dart';
 
-import 'package:movie_discovery_app/screen/moviedetail/customappbar.dart';
-import 'package:movie_discovery_app/screen/moviedetail/floatingbutton.dart';
+import 'package:movie_discovery_app/screens/moviedetail/customappbar.dart';
+import 'package:movie_discovery_app/screens/moviedetail/floatingbutton.dart';
 
 class DetailScreen extends StatefulWidget {
   const DetailScreen({Key? key}) : super(key: key);

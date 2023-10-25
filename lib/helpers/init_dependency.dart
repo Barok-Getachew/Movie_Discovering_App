@@ -6,7 +6,6 @@ import 'package:movie_discovery_app/controllers/movie_controllers.dart';
 class InitDep extends Bindings {
   @override
   void dependencies() {
-    Get.put(MovieController());
     Get.lazyPut(() => FloatingButtomControllor());
   }
 }
