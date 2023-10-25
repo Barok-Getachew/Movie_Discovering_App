@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:movie_discovery_app/controllers/movie_controllers.dart';
+import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
 
 //  this class is used to inject dependancy
 
