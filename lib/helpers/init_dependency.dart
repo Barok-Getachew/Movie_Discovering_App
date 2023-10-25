@@ -7,5 +7,6 @@ class InitDep extends Bindings {
   @override
   void dependencies() {
     Get.put(MovieController());
+    Get.put(BottomNavController());
   }
 }
