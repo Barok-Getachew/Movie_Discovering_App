@@ -28,13 +28,14 @@ class BottomNavBar extends StatelessWidget {
         ),
         GButton(
           icon: Icons.bookmark_border,
-          text: "Feed",
+          text: "Favotire",
         ),
         GButton(
           icon: Icons.person_outline_outlined,
-          text: "Feed",
+          text: "Profile",
         )
       ],
     );
   }
 }
+

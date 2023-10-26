@@ -9,7 +9,6 @@ class ActorListController extends GetxController {
   final List<Actor> _actors = [];
 
   List<Actor> get actorName => _actors;
-  bool _dataFetched = false;
 
   Future<void> setAndFetch(int movieId) async {
     try {
@@ -30,7 +29,6 @@ class ActorListController extends GetxController {
         _actors.add(Actor(name: actor['name']));
       }
 
-      _dataFetched = true;
       update();
     } catch (e) {
       Get.snackbar("Error",

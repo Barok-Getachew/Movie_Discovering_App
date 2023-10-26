@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:movie_discovery_app/controllers/actorlistcontroller.dart';
 
 import 'package:movie_discovery_app/controllers/image_from_movie_controller.dart';
 
