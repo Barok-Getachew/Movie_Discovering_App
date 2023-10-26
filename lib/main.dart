@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:movie_discovery_app/helpers/init_dependency.dart';
-import 'package:movie_discovery_app/screens/home/home_screen.dart';
+import 'package:movie_discovery_app/screens/moviedetail/movie_detil_screen.dart';
 
 void main() {
   runApp(const MovieDiscoverApp());
@@ -14,14 +14,23 @@ class MovieDiscoverApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Movie Descovery App',
+      debugShowCheckedModeBanner: false,
       initialBinding: InitDep(),
+      title: 'Movie Descovery App',
+    
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
         fontFamily: 'PlusJakartaSans',
+
+        textTheme: const TextTheme(
+            bodyLarge: TextStyle(fontFamily: "PlusJakartaSans"),
+            bodyMedium: TextStyle(fontFamily: "PlusJakartaSans"),
+            bodySmall: TextStyle(fontFamily: "PlusJakartaSans")),
+
         useMaterial3: true,
       ),
-      home: const WelcomeScreen(),
+      // home: const DetailScreen(),
     );
   }
 }
@@ -41,7 +50,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
   void initState() {
     Future.delayed(const Duration(seconds: 2), () {
       //  navigate to home screen using getx
-      Get.to(const HomeScreen());
     });
     super.initState();
   }

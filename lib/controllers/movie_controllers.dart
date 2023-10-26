@@ -4,6 +4,7 @@ import 'package:movie_discovery_app/models/genre_model.dart';
 import 'package:movie_discovery_app/models/movie_model.dart';
 
 class MovieController extends GetxController {
+
   final String _apiKey = "9b5dbc93159c2ef9e36db001fb077013";
   final List<MovieModel> _recentMovies = []; // list of fetched movies
   final List<MovieModel> _popularMovies = []; // list of fetched movies
