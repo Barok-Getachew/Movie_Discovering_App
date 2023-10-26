@@ -102,6 +102,7 @@ class MovieController extends GetxController {
   }
 }
 
+
 class BottomNavController extends GetxController {
   final RxInt _index = 0.obs;
 

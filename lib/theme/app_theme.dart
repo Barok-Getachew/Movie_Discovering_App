@@ -5,15 +5,18 @@ class AppTheme {
   static const TextStyle appBarTitleStyle = TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w900,
+    fontFamily: 'ArgentumSans',
   );
   static const TextStyle recentMoviesHeaderStyle = TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w900,
+    fontFamily: 'ArgentumSans',
   );
   static const TextStyle recontMovieTitleStyle = TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w900,
     overflow: TextOverflow.ellipsis,
+    fontFamily: 'ArgentumSans',
   );
   static const TextStyle recontMovieGenreStyle = TextStyle(
       fontSize: 14,
@@ -23,6 +26,7 @@ class AppTheme {
   static const TextStyle popularMovieTitleStyle = TextStyle(
       fontWeight: FontWeight.w600,
       fontSize: 12,
+      fontFamily: 'ArgentumSans',
       overflow: TextOverflow.ellipsis);
   static const TextStyle popularMovieGenresStyle = TextStyle(
       fontWeight: FontWeight.w400,

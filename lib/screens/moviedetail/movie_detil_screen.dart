@@ -29,11 +29,14 @@ class _DetailScreenState extends State<DetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MovieDetailController());
+    Get.lazyPut(() => ActorListController());
+    Get.lazyPut(() => ImageFromMovieController());
+
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
-        backgroundColor: const Color.fromARGB(255, 210, 159, 220),
         body: SizedBox(
             height: double.maxFinite,
             child: FutureBuilder(

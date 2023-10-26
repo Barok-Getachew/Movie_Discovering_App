@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
 import 'package:movie_discovery_app/controllers/movie_detail_controller.dart';
+import 'package:movie_discovery_app/screens/home/home_screen.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double screenWidth;
@@ -52,23 +53,33 @@ class CustomAppBar extends StatelessWidget {
                   toolbarHeight: 100,
                   leading: Padding(
                     padding: const EdgeInsets.only(bottom: 20),
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        LineIcons.arrowLeft,
-                        color: Colors.white,
-                        size: 30,
+                    child: InkWell(
+                      borderRadius: BorderRadius.circular(screenWidth * 0.15),
+                      onTap: () {
+                        Get.to(const HomeScreen());
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Colors.black12,
+                            borderRadius:
+                                BorderRadius.circular(screenWidth * 0.15)),
+                        child: const Icon(
+                          LineIcons.arrowLeft,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ),
-                  leadingWidth: screenWidth * 0.04,
+                  leadingWidth: screenWidth * 0.1,
                   centerTitle: true,
                   title: !Get.find<FloatingButtomControllor>().isVisible
                       ? Padding(
-                          padding: const EdgeInsets.only(top: 10),
+                          padding: const EdgeInsets.only(top: 7),
                           child: Column(
                             children: [
                               Container(
+                                // color: Colors.black12,
                                 padding: const EdgeInsets.only(left: 50),
                                 child: Text(
                                   Get.find<MovieDetailController>()
