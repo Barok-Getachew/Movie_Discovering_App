@@ -14,7 +14,7 @@ class BluredContainer extends StatelessWidget {
       left: 0,
       right: 0,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.09),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.00),
         child: BlurryContainer(
           blur: 1,
           width: screenHeight * 0.01,

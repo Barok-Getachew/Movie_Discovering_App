@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
-
+import 'package:movie_discovery_app/controllers/movie_detail_controller.dart';
 
 class CustomAppBar extends StatelessWidget {
   final double screenWidth;
@@ -16,21 +18,22 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(FloatingButtomControllor());
     return Stack(children: [
       Container(
-        height: screenHeight * 0.5,
+        height: screenHeight * 0.65,
         width: double.infinity,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
             image: NetworkImage(
-              'https://cdn.pixabay.com/photo/2018/03/31/19/29/schnitzel-3279045_1280.jpg',
+              "https://image.tmdb.org/t/p/original${Get.find<MovieDetailController>().movieDetail.posterPath}",
             ),
             fit: BoxFit.cover,
           ),
         ),
       ),
       Positioned(
-        top: screenHeight * 0.0,
+        top: 0,
         left: 0,
         right: 0,
         child: SizedBox(
@@ -46,54 +49,77 @@ class CustomAppBar extends StatelessWidget {
                 return AppBar(
                   backgroundColor: Colors.transparent,
                   elevation: 0,
-                  toolbarHeight: screenHeight * 0.14,
-                  leading: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
+                  toolbarHeight: 100,
+                  leading: Padding(
+                    padding: const EdgeInsets.only(bottom: 20),
+                    child: IconButton(
+                      onPressed: () {},
+                      icon: const Icon(
+                        LineIcons.arrowLeft,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
                   ),
                   leadingWidth: screenWidth * 0.04,
                   centerTitle: true,
-                  title: !controller.isVisible
-                      ? Column(
-                          children: [
-                            const Text(
-                              "Jokkr",
-                              style: TextStyle(
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.white),
-                            ),
-                            SizedBox(
-                              height: screenHeight * 0.01,
-                            ),
-                            const Text(
-                              "Runtime:2hr 2min",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  color: Colors.white),
-                            ),
-                          ],
+                  title: !Get.find<FloatingButtomControllor>().isVisible
+                      ? Padding(
+                          padding: const EdgeInsets.only(top: 10),
+                          child: Column(
+                            children: [
+                              Container(
+                                padding: const EdgeInsets.only(left: 50),
+                                child: Text(
+                                  Get.find<MovieDetailController>()
+                                      .movieDetail
+                                      .movieName,
+                                  style: GoogleFonts.roboto(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 2,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 50),
+                                child: Text(
+                                  "runtime: ${Get.find<MovieDetailController>().movieDetail.runtime} minutes",
+                                  style: const TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          ),
                         )
                       : const SizedBox(),
                   actions: [
-                    isButtonVisisble
-                        ? IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.play_circle_outline,
-                              color: Colors.white,
+                    !Get.find<FloatingButtomControllor>().isVisible
+                        ? Padding(
+                            padding: const EdgeInsets.only(bottom: 15),
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                LineIcons.playCircle,
+                                color: Colors.white,
+                                size: 30,
+                              ),
                             ),
                           )
                         : const SizedBox(),
-                    IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.bookmark_border_outlined,
-                        color: Colors.white,
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 13),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.bookmark_border_rounded,
+                          color: Colors.white,
+                          size: 30,
+                        ),
                       ),
                     ),
                   ],

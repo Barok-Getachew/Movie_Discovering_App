@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:movie_discovery_app/models/movie_model.dart';
 
 class MovieController extends GetxController {
-  final String _apiKey = "9b5dbc93159c2ef9e36db001fb077013";
   final List<MovieModel> _movies = [];
 
   List<MovieModel> get movies => _movies;
