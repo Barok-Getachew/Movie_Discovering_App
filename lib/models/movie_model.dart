@@ -1,8 +1,8 @@
 class MovieModel {
   bool? adult;
   String? backdroppath;
-  // List<int?>? genreids;
-  double? id;
+  List<dynamic>? genreids;
+  int? id;
   String? originallanguage;
   String? originaltitle;
   String? overview;
@@ -17,7 +17,7 @@ class MovieModel {
   MovieModel({
     this.adult,
     this.backdroppath,
-    // this.genreids,
+    this.genreids,
     this.id,
     this.originallanguage,
     this.originaltitle,

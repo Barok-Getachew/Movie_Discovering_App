@@ -3,5 +3,6 @@
 // constant strings
 
 class Constants {
-  static const String pic1 = "assets/images/pic1.png";
+  static const String pic1 = "assets/images/film-placeholder.png";
+  static const String movieIcon = "assets/images/movie.svg";
 }

@@ -18,6 +18,7 @@ class MovieDiscoverApp extends StatelessWidget {
       initialBinding: InitDep(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'PlusJakartaSans',
         useMaterial3: true,
       ),
       home: const WelcomeScreen(),
