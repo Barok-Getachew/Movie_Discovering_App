@@ -17,7 +17,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    movieController.fetchAndSet();
   }
 
   int currentIndex = 0;
@@ -40,7 +39,19 @@ class _HomeScreenState extends State<HomeScreen> {
         child: BottomNavBar(),
       ),
       body: SafeArea(
-        child: Obx(() => _widgets[Get.find<BottomNavController>().index]),
+          child: RefreshIndicator(
+        onRefresh: () async {
+          await movieController.fetchAndSetMovies();
+        },
+        child: FutureBuilder(
+            future: movieController.fetchAndSetMovies(),
+            builder: (ctx, snapshot) {
+              return snapshot.connectionState == ConnectionState.waiting
+                  ? const Center(child: CircularProgressIndicator())
+                  : Obx(() => _widgets[Get.find<BottomNavController>().index]);
+            },
+          ),
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:movie_discovery_app/controllers/movie_controllers.dart';
 import 'package:movie_discovery_app/data/constants.dart';
+import 'package:movie_discovery_app/theme/app_theme.dart';
 import 'package:scroll_snap_list/scroll_snap_list.dart';
 import 'package:search_page/search_page.dart';
 
@@ -43,7 +44,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
               width: size.width / 1.15,
               child: const Text(
                 "Recent",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                style: AppTheme.recentMoviesHeaderStyle,
               ),
             ),
             SizedBox(
@@ -54,7 +55,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
             ),
             SizedBox(
               height: size.height * 0.4,
-              child: const GenericsMovies(),
+              child: PopularMovies(),
             ),
           ],
         ),
@@ -66,7 +67,7 @@ class _FeedsWidgetState extends State<FeedsWidget> {
 // ignore: must_be_immutable
 class FeedsHeader extends StatelessWidget {
   // this sureve as app bar
-  List<MovieModel> movies = Get.find<MovieController>().movies ;
+  List<MovieModel> movies = Get.find<MovieController>().recentMovies;
 
   FeedsHeader({super.key});
 
@@ -82,15 +83,15 @@ class FeedsHeader extends StatelessWidget {
           Row(
             children: [
               Icon(
-                Icons.movie_creation_outlined,
-                size: size.width * 0.08,
+                Icons.local_movies_outlined,
+                size: size.height * 0.05,
               ),
               SizedBox(
                 width: size.width * 0.02,
               ),
               const Text(
                 "Movie Plus",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+                style: AppTheme.appBarTitleStyle,
               )
             ],
           ),
@@ -99,11 +100,23 @@ class FeedsHeader extends StatelessWidget {
                 showSearch(
                     context: context,
                     delegate: SearchPage(
-                        builder: (movie) => ListTile(title: Text(movie.title.toString())),
+                        builder: (movie) => InkWell(
+                              onTap: () {},
+                              child: ListTile(
+                                hoverColor: Colors.grey,
+                                leading: CircleAvatar(
+                                  backgroundImage: NetworkImage(
+                                      "https://image.tmdb.org/t/p/w220_and_h330_face${movie.posterpath}"),
+                                ),
+                                title: Text(
+                                  movie.title.toString(),
+                                ),
+                                subtitle: Text(movie.releasedate!),
+                              ),
+                            ),
                         filter: (movie) {
                           return [
                             movie.title,
-                            movie.overview, 
                           ];
                         },
                         items: movies));
@@ -121,6 +134,7 @@ class FeedsHeader extends StatelessWidget {
 // ignore: must_be_immutable
 class RecentMovies extends StatelessWidget {
   int focusedIndex = 0;
+  MovieController movieController = Get.find();
 
   RecentMovies({super.key});
 
@@ -129,6 +143,7 @@ class RecentMovies extends StatelessWidget {
   }
 
   Widget _itemBuilder(BuildContext ctx, int index) {
+    final movies = movieController.recentMovies;
     final size = MediaQuery.of(ctx).size;
 
     return Container(
@@ -164,41 +179,32 @@ class RecentMovies extends StatelessWidget {
                 ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(size.width * 0.1),
-              child: Image.network(
-                "https://cdn.pixabay.com/photo/2018/03/31/19/29/schnitzel-3279045_1280.jpg",
-                fit: BoxFit.cover,
-                height: size.height * 0.5,
-              ),
-              // child: Image.asset(
-              //   Constants.pic1,
-              //   fit: BoxFit.cover,
-              // ),
-            ),
-          ),
-          SizedBox(
-            width: size.width / 1.5,
-            child: const Text(
-              "Joker",
-              textAlign: TextAlign.start,
-              style: TextStyle(
-                fontSize: 20,
-                fontWeight: FontWeight.w900,
+            child: SizedBox(
+              height: size.height * 0.5,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(size.width * 0.1),
+                child: FadeInImage(
+                  placeholder: const AssetImage(Constants.pic1),
+                  image: NetworkImage(
+                    "https://image.tmdb.org/t/p/w220_and_h330_face${movies[index].posterpath}",
+                  ),
+                  fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high,
+                ),
               ),
             ),
           ),
           SizedBox(
             width: size.width / 1.5,
-            child: const Text(
-              "Crime,Drama,Thriller",
-              textAlign: TextAlign.left,
-              style: TextStyle(
-                fontSize: 14,
-                fontWeight: FontWeight.w400,
-                color: Colors.grey,
-              ),
-            ),
+            child: Text(movies[index].title!,
+                textAlign: TextAlign.start,
+                style: AppTheme.recontMovieTitleStyle),
+          ),
+          SizedBox(
+            width: size.width / 1.5,
+            child: Text(movieController.getGeners(movies[index].genreids),
+                textAlign: TextAlign.left,
+                style: AppTheme.recontMovieGenreStyle),
           ),
         ],
       ),
@@ -209,75 +215,114 @@ class RecentMovies extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
-    return SizedBox(
-      width: size.width,
-      child: ScrollSnapList(
-        itemBuilder: _itemBuilder,
-        itemCount: 10,
-        itemSize: size.width / 1.6, // Make items wider
-        onItemFocus: _onItemFocus,
-        dynamicItemSize: true,
-        dynamicItemOpacity: 0.7, // Adjust opacity for the current and next item
-        initialIndex: 0,
-        updateOnScroll: true,
-        curve: Curves.bounceInOut,
-        focusOnItemTap: true,
-        shrinkWrap: true,
+    return GestureDetector(
+      onTap: () {},
+      child: SizedBox(
+        width: size.width,
+        child: GetBuilder<MovieController>(
+          builder: (GetxController controller) {
+            return ScrollSnapList(
+              itemBuilder: _itemBuilder,
+              itemCount: movieController.recentMovies.length,
+              itemSize: size.width / 1.6, // Make items wider
+              onItemFocus: _onItemFocus,
+              dynamicItemSize: true,
+              dynamicItemOpacity:
+                  0.7, // Adjust opacity for the current and next item
+              initialIndex: 0,
+              updateOnScroll: true,
+              curve: Curves.bounceInOut,
+              focusOnItemTap: true,
+              shrinkWrap: true,
+            );
+          },
+        ),
       ),
     );
   }
 }
 
-class GenericsMovies extends StatelessWidget {
-  const GenericsMovies({super.key});
+class PopularMovies extends StatelessWidget {
+  PopularMovies({super.key});
+
+  final MovieController _movieController = Get.find();
 
   @override
   Widget build(BuildContext context) {
+    final popularMovies = _movieController.popularMovies;
     final size = MediaQuery.of(context).size;
 
-    return ListView.builder(
-      scrollDirection: Axis.horizontal,
-      itemBuilder: (context, index) {
-        return Container(
-          margin: EdgeInsets.symmetric(horizontal: size.height * 0.015),
-          width: size.width * 0.4,
-          height: size.height * 0.35,
-          child: Card(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20),
-                  ),
-                  child: Image.asset(
-                    Constants.pic1,
-                    fit: BoxFit.cover,
-
-                    // width: size.width * 0.4,
+    return GestureDetector(
+      onTap: () {},
+      child: GetBuilder<MovieController>(
+        builder: (GetxController controller) {
+          return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemBuilder: (context, index) {
+              return Container(
+                margin: EdgeInsets.symmetric(horizontal: size.height * 0.01),
+                width: size.width * 0.4,
+                height: size.height * 0.6,
+                child: Card(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
+                        ),
+                        child: FadeInImage(
+                          placeholder: const AssetImage(Constants.pic1),
+                          image: NetworkImage(
+                            "https://image.tmdb.org/t/p/w220_and_h330_face${popularMovies[index].posterpath!}",
+                          ),
+                          fit: BoxFit.cover,
+                          height: size.height * 0.3,
+                          width: size.width * 0.4,
+                        ),
+                      ),
+                      SizedBox(
+                        height: size.height * 0.01,
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.only(
+                            left: size.width * 0.01, right: size.width * 0.01),
+                        child: Text(popularMovies[index].originaltitle!,
+                            style: AppTheme.popularMovieTitleStyle),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        padding:
+                            EdgeInsets.symmetric(horizontal: size.width * 0.01),
+                        child: Text(
+                          _movieController
+                              .getGeners(popularMovies[index].genreids),
+                          style: AppTheme.popularMovieGenresStyle,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Container(
+                        width: double.infinity,
+                        height: size.height * 0.02,
+                        padding: EdgeInsets.only(
+                            left: size.width * 0.01, right: size.width * 0.01),
+                        child: Text(
+                          "Popularity:  ${popularMovies[index].popularity.toString()}",
+                          maxLines: 2,
+                          style: AppTheme.popularMoviePopularityStyle,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                const Text(
-                  "Joker",
-                  style: TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 16,
-                  ),
-                ),
-                const Text(
-                  "Crime,Drama,Thriller",
-                  style: TextStyle(
-                      fontWeight: FontWeight.w400,
-                      fontSize: 14,
-                      color: Color.fromRGBO(42, 42, 42, 0.5)),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-      itemCount: 10,
+              );
+            },
+            itemCount: popularMovies.length,
+          );
+        },
+      ),
     );
   }
 }

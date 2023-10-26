@@ -17,15 +17,17 @@ class MovieDiscoverApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       initialBinding: InitDep(),
       title: 'Movie Descovery App',
-      home: const DetailScreen(
-        movieID: 299054,
-      ),
+    
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+
+        fontFamily: 'PlusJakartaSans',
+
         textTheme: const TextTheme(
             bodyLarge: TextStyle(fontFamily: "PlusJakartaSans"),
             bodyMedium: TextStyle(fontFamily: "PlusJakartaSans"),
             bodySmall: TextStyle(fontFamily: "PlusJakartaSans")),
+
         useMaterial3: true,
       ),
       // home: const DetailScreen(),
