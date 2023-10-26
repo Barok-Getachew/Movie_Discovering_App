@@ -18,10 +18,10 @@ class MovieDetailController extends GetxController {
 
   MovieDetail get movieDetail => _detail;
 
-  Future<void> setAndFetch() async {
+  Future<void> setAndFetch(int movieId) async {
     try {
       final response = await dio.get(
-        'https://api.themoviedb.org/3/movie/299054?language=en-US',
+        'https://api.themoviedb.org/3/movie/$movieId?language=en-US',
         options: Options(
           method: 'GET',
           headers: {

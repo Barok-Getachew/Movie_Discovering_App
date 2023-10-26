@@ -14,9 +14,12 @@ class MovieDiscoverApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       initialBinding: InitDep(),
       title: 'Movie Descovery App',
-      home: const DetailScreen(),
+      home: const DetailScreen(
+        movieID: 299054,
+      ),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         textTheme: const TextTheme(

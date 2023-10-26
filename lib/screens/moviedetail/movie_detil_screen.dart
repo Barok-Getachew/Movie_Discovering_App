@@ -6,6 +6,7 @@ import 'package:movie_discovery_app/controllers/floatingbuttoncontroller.dart';
 import 'package:movie_discovery_app/controllers/image_from_movie_controller.dart';
 
 import 'package:movie_discovery_app/controllers/movie_detail_controller.dart';
+import 'package:movie_discovery_app/screens/moviedetail/actorlistview.dart';
 
 import 'package:movie_discovery_app/screens/moviedetail/bluredcontainer.dart';
 import 'package:movie_discovery_app/screens/moviedetail/bottomcontainer.dart';
@@ -14,7 +15,8 @@ import 'package:movie_discovery_app/screens/moviedetail/customappbar.dart';
 import 'package:movie_discovery_app/screens/moviedetail/floatingbutton.dart';
 
 class DetailScreen extends StatefulWidget {
-  const DetailScreen({super.key});
+  final int movieID;
+  const DetailScreen({super.key, required this.movieID});
 
   @override
   State<DetailScreen> createState() => _DetailScreenState();
@@ -36,9 +38,10 @@ class _DetailScreenState extends State<DetailScreen> {
             height: double.maxFinite,
             child: FutureBuilder(
                 future: Future.wait([
-                  Get.find<MovieDetailController>().setAndFetch(),
-                  Get.find<ActorListController>().setAndFetch(),
-                  Get.find<ImageFromMovieController>().setAndFetch(),
+                  Get.find<MovieDetailController>().setAndFetch(widget.movieID),
+                  Get.find<ActorListController>().setAndFetch(widget.movieID),
+                  Get.find<ImageFromMovieController>()
+                      .setAndFetch(widget.movieID),
                 ]),
 
                 // Get.find<ImageFromMovieController>().setAndFetch(),
@@ -94,13 +97,14 @@ class _DetailScreenState extends State<DetailScreen> {
                                             ),
                                             child: Text(
                                               controller.movieDetail.movieName,
-                                              style: GoogleFonts.actor(
+                                              style: const TextStyle(
+                                                  fontFamily: 'ArgentumSans',
                                                   fontSize: 30,
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
                                           const SizedBox(
-                                            height: 15,
+                                            height: 10,
                                           ),
                                           Padding(
                                             padding: EdgeInsets.symmetric(
@@ -123,7 +127,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                               horizontal: screenWidth * 0.09,
                                             ),
                                             child: Text(
-                                              "${controller.movieDetail.runtime}  min",
+                                              "runtime: ${controller.movieDetail.runtime}  min",
                                               style: const TextStyle(
                                                   fontSize: 10,
                                                   fontWeight: FontWeight.w400,
@@ -144,56 +148,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                           const SizedBox(
                                             height: 30,
                                           ),
-                                          Container(
-                                            color: Colors.transparent,
-                                            margin: EdgeInsets.all(
-                                                screenWidth * 0.02),
-                                            width: screenWidth,
-                                            height: screenHeight * 0.2,
-                                            child: ListView.builder(
-                                              scrollDirection: Axis.horizontal,
-                                              itemBuilder: (context, index) {
-                                                return Container(
-                                                    margin:
-                                                        EdgeInsets.symmetric(
-                                                            horizontal:
-                                                                screenWidth *
-                                                                    0.02),
-                                                    width: screenWidth * 0.4,
-                                                    child: Card(
-                                                      elevation: 3,
-                                                      shadowColor: Colors.black,
-                                                      shape:
-                                                          RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                                20.0), // Adjust the radius as needed
-                                                      ),
-                                                      child: Container(
-                                                        decoration:
-                                                            BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(20),
-                                                          image:
-                                                              DecorationImage(
-                                                            image: NetworkImage(
-                                                              "https://image.tmdb.org/t/p/original${Get.find<ImageFromMovieController>().movieImage[index].filePath}",
-                                                            ),
-                                                            fit: BoxFit.cover,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ));
-                                              },
-                                              itemCount: Get.find<
-                                                      ImageFromMovieController>()
-                                                  .movieImage
-                                                  .length,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            height: 30,
+                                          ActorListView(
+                                            screenHeight: screenHeight,
+                                            screenWidth: screenWidth,
                                           ),
                                           Padding(
                                             padding: EdgeInsets.symmetric(

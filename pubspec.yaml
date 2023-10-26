@@ -44,6 +44,7 @@ dependencies:
   blurrycontainer: ^1.0.2
   bottom_bar_with_sheet: ^2.4.0
   google_fonts: ^6.1.0
+  line_icons: ^2.0.3
 
 dev_dependencies:
   flutter_test:
@@ -87,6 +88,10 @@ flutter:
    - family: PlusJakartaSans
      fonts:
         - asset: assets/Fonts/PlusJakartaSans-Regular.ttf
+          style: normal
+   - family: ArgentumSans
+     fonts:
+        - asset: assets/Fonts/argentum-sans.black.ttf
           style: normal
   #   - family: Trajan Pro
   #     fonts:

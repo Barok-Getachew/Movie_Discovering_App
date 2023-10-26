@@ -9,11 +9,12 @@ class ActorListController extends GetxController {
   final List<Actor> _actors = [];
 
   List<Actor> get actorName => _actors;
+  bool _dataFetched = false;
 
-  Future<void> setAndFetch() async {
+  Future<void> setAndFetch(int movieId) async {
     try {
       final response = await dio.get(
-        'https://api.themoviedb.org/3/movie/299054/credits?language=en-US',
+        'https://api.themoviedb.org/3/movie/$movieId/credits?language=en-US',
         options: Options(
           method: 'GET',
           headers: {
@@ -27,8 +28,10 @@ class ActorListController extends GetxController {
         var actor = response.data['cast'][i];
 
         _actors.add(Actor(name: actor['name']));
-        update();
       }
+
+      _dataFetched = true;
+      update();
     } catch (e) {
       Get.snackbar("Error",
           "An error occurred while fetching movie images"); // Show an error message to the user
@@ -36,7 +39,11 @@ class ActorListController extends GetxController {
   }
 
   String getActorNamesSeparatedByCommas() {
-    return _actors.map((actor) => actor.name).join(', ');
+    final actorNames = _actors.map((actor) => actor.name).join(', ');
+
+    _actors.clear();
+
+    return actorNames;
   }
 }
 

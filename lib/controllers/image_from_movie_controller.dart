@@ -6,15 +6,14 @@ import 'package:movie_discovery_app/models/moviimage.dart';
 
 class ImageFromMovieController extends GetxController {
   static final dio = Dio();
-  static const url = 'https://api.themoviedb.org/3/movie/299054/images';
 
   final List<MovieImage> _movieImage = [];
 
   List<MovieImage> get movieImage => _movieImage;
-  Future<void> setAndFetch() async {
+  Future<void> setAndFetch(int movieId) async {
     try {
       final response = await dio.get(
-        url,
+        'https://api.themoviedb.org/3/movie/$movieId/images',
         options: Options(
           method: 'GET',
           headers: {
@@ -24,16 +23,14 @@ class ImageFromMovieController extends GetxController {
         ),
       );
 
-    
       for (int i = 0; i < response.data['backdrops'].length; i++) {
         var movie = response.data['backdrops'][i];
         _movieImage.add(MovieImage(movie['file_path']));
-        update();
       }
-
-      
+      update();
     } catch (e) {
-    Get.snackbar("Error", "An error occurred while fetching movie images"); // Show an error message to the user
+      Get.snackbar("Error",
+          "An error occurred while fetching movie images"); // Show an error message to the user
     }
   }
 }
