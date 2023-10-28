@@ -36,6 +36,9 @@ class _FeedsWidgetState extends State<FeedsWidget> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            SizedBox(
+              height: size.height * 0.02,
+            ),
             FeedsHeader(),
             SizedBox(
               height: size.height * 0.01,
@@ -103,7 +106,7 @@ class FeedsHeader extends StatelessWidget {
                     delegate: SearchPage(
                         builder: (movie) => InkWell(
                               onTap: () {
-                                Get.to(DetailScreen(movieID: movie.id!));
+                                Get.off(DetailScreen(movieID: movie.id!));
                               },
                               child: ListTile(
                                 hoverColor: Colors.grey,

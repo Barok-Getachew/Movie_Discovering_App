@@ -22,7 +22,7 @@ class ImageFromMovieController extends GetxController {
           },
         ),
       );
-
+      _movieImage.clear();
       for (int i = 0; i < response.data['backdrops'].length; i++) {
         var movie = response.data['backdrops'][i];
         _movieImage.add(MovieImage(movie['file_path']));
@@ -32,5 +32,10 @@ class ImageFromMovieController extends GetxController {
       Get.snackbar("Error",
           "An error occurred while fetching movie images"); // Show an error message to the user
     }
+  }
+
+  void clearMovieImage() {
+    _movieImage.clear();
+    update();
   }
 }

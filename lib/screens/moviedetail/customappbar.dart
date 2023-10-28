@@ -52,11 +52,11 @@ class CustomAppBar extends StatelessWidget {
                   elevation: 0,
                   toolbarHeight: 100,
                   leading: Padding(
-                    padding: const EdgeInsets.only(bottom: 20),
+                    padding: const EdgeInsets.only(bottom: 13),
                     child: InkWell(
                       borderRadius: BorderRadius.circular(screenWidth * 0.15),
                       onTap: () {
-                        Get.to(const HomeScreen());
+                        Get.offAll(const HomeScreen());
                       },
                       child: Container(
                         decoration: BoxDecoration(

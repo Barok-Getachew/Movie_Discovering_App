@@ -11,6 +11,7 @@ class ActorListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(ImageFromMovieController());
     return Container(
       color: Colors.transparent,
       margin: EdgeInsets.all(screenWidth * 0.02),
@@ -36,12 +37,14 @@ class ActorListView extends StatelessWidget {
                       image: DecorationImage(
                         image: NetworkImage(
                           "https://image.tmdb.org/t/p/original${controller.movieImage[index].filePath}",
+                          
                         ),
                         fit: BoxFit.cover,
                       ),
                     ),
                   ),
                 ));
+                
           },
           itemCount: Get.find<ImageFromMovieController>().movieImage.length,
         );
