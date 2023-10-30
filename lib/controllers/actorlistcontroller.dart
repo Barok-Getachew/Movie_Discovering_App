@@ -5,7 +5,7 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 
 class ActorListController extends GetxController {
   static final dio = Dio();
-  static const url = 'https://api.themoviedb.org/3/movie/299054?language=en-US';
+  
   final List<Actor> _actors = [];
 
   List<Actor> get actorName => _actors;

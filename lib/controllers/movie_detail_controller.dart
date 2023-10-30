@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
@@ -7,7 +6,7 @@ import '../models/moviedetail.dart';
 
 class MovieDetailController extends GetxController {
   static final dio = Dio();
-  static const url = 'https://api.themoviedb.org/3/movie/299054?language=en-US';
+
   final MovieDetail _detail = MovieDetail(
       geners: '',
       movieName: '',
@@ -30,7 +29,6 @@ class MovieDetailController extends GetxController {
           },
         ),
       );
-    
 
       final movieData = response.data;
       List<Map<String, dynamic>> genreList =
@@ -40,7 +38,6 @@ class MovieDetailController extends GetxController {
           genreList.map((genre) => genre['name'].toString()).toList();
 
       String allGenres = genreNames.join(', ');
-    
 
       _detail.geners = allGenres;
       _detail.movieName = movieData['original_title'];
@@ -50,8 +47,6 @@ class MovieDetailController extends GetxController {
       _detail.rating = movieData['vote_average'];
 
       update();
-
-     
     } catch (e) {
       // Handle the API request failure here.
       if (kDebugMode) {

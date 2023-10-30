@@ -28,14 +28,12 @@ class ImageFromMovieController extends GetxController {
         _movieImage.add(MovieImage(movie['file_path']));
       }
       update();
+      
     } catch (e) {
       Get.snackbar("Error",
           "An error occurred while fetching movie images"); // Show an error message to the user
     }
   }
 
-  void clearMovieImage() {
-    _movieImage.clear();
-    update();
-  }
+
 }
